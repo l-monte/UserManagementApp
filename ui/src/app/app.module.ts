@@ -10,7 +10,7 @@ import { MatListModule } from '@angular/material';
 import { LoginComponent } from './login/login.component';
 import { UserComponent } from './user/user.component';
 import { MaterialModule } from './core/material.module';
-import {FormsModule} from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
