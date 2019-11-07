@@ -8,7 +8,7 @@ import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 })
 export class UserViewComponent {
 
-  displayedColumns = ['id', 'name', 'progress', 'color'];
+  displayedColumns = ['name', 'surename', 'email', 'timestamp', 'logged'];
   dataSource: MatTableDataSource<UserData>;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;

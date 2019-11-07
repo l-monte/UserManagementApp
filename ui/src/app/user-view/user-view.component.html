@@ -12,34 +12,34 @@
   <mat-table [dataSource]="dataSource" matSort>
 
     <!-- Name -->
-    <ng-container matColumnDef="id">
+    <ng-container matColumnDef="name">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
       <mat-cell *matCellDef="let row"> {{row.id}} </mat-cell>
     </ng-container>
 
     <!-- Surename -->
-    <ng-container matColumnDef="progress">
+    <ng-container matColumnDef="surename">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Surename </mat-header-cell>
       <mat-cell *matCellDef="let row"> {{row.progress}}% </mat-cell>
     </ng-container>
 
     <!-- Email -->
-    <ng-container matColumnDef="name">
+    <ng-container matColumnDef="email">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Email </mat-header-cell>
       <mat-cell *matCellDef="let row"> {{row.name}} </mat-cell>
     </ng-container>
 
     <!-- Last Timestamp -->
-    <ng-container matColumnDef="color">
+    <ng-container matColumnDef="timestamp">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Last timestamp </mat-header-cell>
       <mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.color}} </mat-cell>
     </ng-container>
 
     <!-- Logged -->
-    <!--<ng-container matColumnDef="color">
+    <ng-container matColumnDef="logged">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Logged </mat-header-cell>
       <mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.color}} </mat-cell>
-    </ng-container> -->
+    </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;">
