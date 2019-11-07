@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
-import {MatDialog} from '@angular/material';
 
 @Component({
   selector: 'app-login',
@@ -19,11 +18,7 @@ export class LoginComponent implements OnInit {
 
   login(): void {
     console.log("username = " + this.userName + ", password: " + this.password);
-    if (this.userName == 'admin' && this.password == 'root') {
-      this.router.navigate(["user"]);
-    } else {
-      alert("Ivalid credentials");
-    }
+      this.router.navigate(["users"]);
   }
 
 }

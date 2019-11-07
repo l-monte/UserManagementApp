@@ -1,0 +1,53 @@
+<!--<div class="example-header">
+
+</div>-->
+<mat-toolbar>
+  <mat-toolbar-row>
+    <span>Hello!</span>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<div class="example-container mat-elevation-z8">
+
+  <mat-table [dataSource]="dataSource" matSort>
+
+    <!-- Name -->
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.id}} </mat-cell>
+    </ng-container>
+
+    <!-- Surename -->
+    <ng-container matColumnDef="progress">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Surename </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.progress}}% </mat-cell>
+    </ng-container>
+
+    <!-- Email -->
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Email </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.name}} </mat-cell>
+    </ng-container>
+
+    <!-- Last Timestamp -->
+    <ng-container matColumnDef="color">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Last timestamp </mat-header-cell>
+      <mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.color}} </mat-cell>
+    </ng-container>
+
+    <!-- Logged -->
+    <!--<ng-container matColumnDef="color">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Logged </mat-header-cell>
+      <mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.color}} </mat-cell>
+    </ng-container> -->
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;">
+    </mat-row>
+  </mat-table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+</div>
+<div class="footer">
+  <app-user-size [allUsersNum]="13" [loggedUsersNum]="24"></app-user-size>
+</div>

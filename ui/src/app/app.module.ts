@@ -10,7 +10,9 @@ import { MatListModule } from '@angular/material';
 import { LoginComponent } from './login/login.component';
 import { UserComponent } from './user/user.component';
 import { MaterialModule } from './core/material.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UserViewComponent } from './user-view/user-view.component';
+import { UserSizeComponent } from './user-view/user-size/user-size.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { FormsModule } from '@angular/forms';
     CompaniesComponent,
     CompanyDetailsComponent,
     LoginComponent,
-    UserComponent
+    UserComponent,
+    UserViewComponent,
+    UserSizeComponent
   ],
   imports: [
     BrowserModule,
@@ -26,7 +30,8 @@ import { FormsModule } from '@angular/forms';
     MatListModule,
     AppRoutingModule,
     FormsModule,
-    MaterialModule
+    MaterialModule,
+    ReactiveFormsModule
   ],
   exports: [
     MatListModule
