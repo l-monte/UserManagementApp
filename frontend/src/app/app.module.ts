@@ -8,11 +8,11 @@ import { CompaniesComponent } from './companies/companies/companies.component';
 import { CompanyDetailsComponent } from './company-details/company-details.component';
 import { MatListModule } from '@angular/material';
 import { LoginComponent } from './login/login.component';
-import { UserComponent } from './user/user.component';
 import { MaterialModule } from './core/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserViewComponent } from './user-view/user-view.component';
-import { UserSizeComponent } from './user-view/user-size/user-size.component';
+import { UserSizeComponent } from './user-view/user-size/user-size.component'
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -20,7 +20,6 @@ import { UserSizeComponent } from './user-view/user-size/user-size.component';
     CompaniesComponent,
     CompanyDetailsComponent,
     LoginComponent,
-    UserComponent,
     UserViewComponent,
     UserSizeComponent
   ],
@@ -31,7 +30,8 @@ import { UserSizeComponent } from './user-view/user-size/user-size.component';
     AppRoutingModule,
     FormsModule,
     MaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   exports: [
     MatListModule

@@ -1,5 +1,7 @@
+import { User } from './../model/user';
+import { UserService } from './../services/user.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 
 @Component({
   selector: 'app-user-view',
@@ -8,19 +10,26 @@ import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 })
 export class UserViewComponent {
 
+  usersModels: User[] = [];
+
   displayedColumns = ['name', 'surename', 'email', 'timestamp', 'logged'];
   dataSource: MatTableDataSource<UserData>;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
-  constructor() {
+  constructor(private userService: UserService) {
     // Create 100 users
     const users: UserData[] = [];
     for (let i = 1; i <= 100; i++) { users.push(createNewUser(i)); }
 
     // Assign the data to the data source for the table to render
     this.dataSource = new MatTableDataSource(users);
+  }
+
+  ngOnInit() {
+    console.log('UserViewComponent::ngOnInit()');
+    this.userService.findAll().subscribe(data => { console.log('Rozmiar danych: ' + data.length); this.usersModels = data; });
   }
 
   /**
