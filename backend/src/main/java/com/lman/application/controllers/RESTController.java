@@ -23,8 +23,9 @@ public class RESTController {
         return userRepo.findAll();
     }
 
-    @PostMapping("/users")
-    public void saveUsers(@RequestBody User user) {
-        userRepo.save(user);
-    }
+    @GetMapping("/loggedusersnumber")
+    public long getLoggedUsers() { return loggedUserRepo.getLoggedUsersNumber(); }
+
+    @GetMapping("/usersnumber")
+    public long getUserNumber() { return userRepo.getUserNumber(); }
 }
