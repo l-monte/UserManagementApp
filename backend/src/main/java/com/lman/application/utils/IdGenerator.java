@@ -21,7 +21,7 @@ public class IdGenerator {
 //        return INSTANCE;
 //    }
 
-    private IdGenerator() {
+    public IdGenerator() {
         System.out.println("MONTE: private c-tor of IdGenerator");
 
 //        if (INSTANCE != null) {

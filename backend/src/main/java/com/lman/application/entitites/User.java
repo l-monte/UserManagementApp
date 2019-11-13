@@ -7,9 +7,9 @@ public class User {
     private String firstName;
     private String secondName;
     private String email;
-    private Timestamp timestamp;
+    private Long timestamp;
 
-    public User(UserId id, String firstName, String secondName, String email, Timestamp timestamp) {
+    public User(UserId id, String firstName, String secondName, String email, long timestamp) {
         this.id = id;
         this.firstName = firstName;
         this.secondName = secondName;
@@ -41,11 +41,11 @@ public class User {
         this.email = email;
     }
 
-    public Timestamp getTimestamp() {
+    public long getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(Timestamp timestamp) {
+    public void setTimestamp(long timestamp) {
         this.timestamp = timestamp;
     }
 

@@ -10,13 +10,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import javax.annotation.PostConstruct;
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.stream.Stream;
 
 @SpringBootApplication
 public class Application {
-
-	@Autowired
-	IdGenerator idGenerator;
 
 	@Autowired
 	UserRepository userRepository;
@@ -28,20 +26,7 @@ public class Application {
 	@PostConstruct
 	public void init() {
 
-		System.out.println("MONTE: Application::init() [creating User instance]");
-
-		Stream.of("John", "Julie", "Jennifer", "Helen", "Rachel").forEach(name -> {
-			User user = new User(
-						new UserId(idGenerator.uniqueId()),
-						name,
-						"Nowak",
-						name + "@domain.com",
-						new Timestamp(System.currentTimeMillis())
-			);
-
-			userRepository.save(user);
-		});
-
+		System.out.println("DEBUG: Users in database:");
 		userRepository.findAll().forEach(System.out::println);
 	}
 
