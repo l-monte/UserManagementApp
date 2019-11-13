@@ -13,7 +13,7 @@
         <tr>
           <td>
             <mat-form-field class="example-full-width">
-            <input matInput placeholder="Email Address" [(ngModel)]="userName" name="userName" required>
+            <input matInput placeholder="Email Address" [(ngModel)]="email" name="email" required>
             </mat-form-field>
           </td>
         </tr>
@@ -27,5 +27,6 @@
   </mat-card-content>
   <mat-card-actions>
     <button mat-raised-button (click)="login()" color="primary">Login</button>
+    <span color="primary">{{errorMessage}}</span>
   </mat-card-actions>
 </mat-card>

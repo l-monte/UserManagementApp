@@ -37,11 +37,19 @@ public class UserRepository  {
         return users.containsKey(id);
     }
 
-    public User findById(Integer id) {
+    public User findById(UserId id) {
         return users.get(id);
     }
 
-    public long getUserNumber() {
+    public UserId findbyEmail(String email) {
+        for (User user: users.values()) {
+            if (user.getEmail().equals(email))
+                return user.getId();
+        }
+        return null;
+    }
+
+    public long getUsersNumber() {
         return users.size();
     }
 }

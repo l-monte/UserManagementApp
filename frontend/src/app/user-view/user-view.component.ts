@@ -1,8 +1,8 @@
+import { UserNumberService } from './../services/user-number.service';
 import { User } from './../model/user';
 import { UserService } from './../services/user.service';
 import { Component, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-user-view',
@@ -11,7 +11,9 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 })
 export class UserViewComponent {
 
-  users: User[] = [];
+  private users: User[] = [];
+  private allUserNumber = 0;
+  private loggedUserNumber = 0;
 
   displayedColumns = ['name', 'surename', 'email', 'timestamp', 'logged'];
   dataSource: MatTableDataSource<User>;
@@ -20,6 +22,7 @@ export class UserViewComponent {
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   constructor(private userService: UserService,
+              private userNumberService: UserNumberService,
               private changeDetectorRefs: ChangeDetectorRef) {
 
     // Assign the data to the data source for the table to render
@@ -27,7 +30,7 @@ export class UserViewComponent {
   }
 
   ngOnInit() {
-    console.log('UserViewComponent::ngOnInit()');
+
     this.userService.findAll().subscribe(data => {
         console.log('Rozmiar danych w UserView::ngOnInit(): ' + data.length);
         this.dataSource = new MatTableDataSource(data);
@@ -36,21 +39,18 @@ export class UserViewComponent {
         this.dataSource.sort = this.sort;
       });
 
-    //this.refresh();
+    this.userNumberService.getAllUserNumber().subscribe(num => {
+      this.allUserNumber = num;
+    });
+
+    this.userNumberService.getLoggedUserNumber().subscribe(num => {
+      this.loggedUserNumber = num;
+    });
   }
 
-  /**
-   * Set the paginator and sort after the view init since this component will
-   * be able to query its view for the initialized paginator and sort.
-   */
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-  }
-
-  refresh() {
-    this.userService.findAll().subscribe(data => { console.log('Rozmiar danych w refresh: ' + data.length); this.users = data; });
-    this.changeDetectorRefs.detectChanges();
   }
 }
 

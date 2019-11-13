@@ -16,7 +16,7 @@ export class UserService {
   }
 
   public findAll(): Observable<User[]> {
-    console.log("Getting data from localhost:8080/users ...");
+    console.log('DEBUG: Getting data from localhost:8080/users ...');
     return this.http.get<User[]>(this.usersUrl);
   }
 
