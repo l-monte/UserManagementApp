@@ -6,6 +6,7 @@ export class User {
   firstName: string;
   secondName: string;
   email: string;
+  timestamp: string;
   //timestamp: Timestamp;
 
   constructor() { }

@@ -14,19 +14,19 @@
     <!-- Name -->
     <ng-container matColumnDef="name">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.id}} </mat-cell>
+      <mat-cell *matCellDef="let user"> {{user.firstName}} </mat-cell>
     </ng-container>
 
     <!-- Surename -->
     <ng-container matColumnDef="surename">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Surename </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.progress}}% </mat-cell>
+      <mat-cell *matCellDef="let user"> {{user.secondName}} </mat-cell>
     </ng-container>
 
     <!-- Email -->
     <ng-container matColumnDef="email">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Email </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.name}} </mat-cell>
+      <mat-cell *matCellDef="let user"> {{user.email}} </mat-cell>
     </ng-container>
 
     <!-- Last Timestamp -->

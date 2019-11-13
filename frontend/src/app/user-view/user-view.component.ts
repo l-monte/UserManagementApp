@@ -1,7 +1,8 @@
 import { User } from './../model/user';
 import { UserService } from './../services/user.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-user-view',
@@ -10,26 +11,32 @@ import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 })
 export class UserViewComponent {
 
-  usersModels: User[] = [];
+  users: User[] = [];
 
   displayedColumns = ['name', 'surename', 'email', 'timestamp', 'logged'];
-  dataSource: MatTableDataSource<UserData>;
+  dataSource: MatTableDataSource<User>;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
-  constructor(private userService: UserService) {
-    // Create 100 users
-    const users: UserData[] = [];
-    for (let i = 1; i <= 100; i++) { users.push(createNewUser(i)); }
+  constructor(private userService: UserService,
+              private changeDetectorRefs: ChangeDetectorRef) {
 
     // Assign the data to the data source for the table to render
-    this.dataSource = new MatTableDataSource(users);
+    this.dataSource = new MatTableDataSource(this.users);
   }
 
   ngOnInit() {
     console.log('UserViewComponent::ngOnInit()');
-    this.userService.findAll().subscribe(data => { console.log('Rozmiar danych: ' + data.length); this.usersModels = data; });
+    this.userService.findAll().subscribe(data => {
+        console.log('Rozmiar danych w UserView::ngOnInit(): ' + data.length);
+        this.dataSource = new MatTableDataSource(data);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      });
+
+    //this.refresh();
   }
 
   /**
@@ -40,20 +47,11 @@ export class UserViewComponent {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
-}
 
-/** Builds and returns a new User. */
-function createNewUser(id: number): UserData {
-  const name =
-      NAMES[Math.round(Math.random() * (NAMES.length - 1))] + ' ' +
-      NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) + '.';
-
-  return {
-    id: id.toString(),
-    name: name,
-    progress: Math.round(Math.random() * 100).toString(),
-    color: COLORS[Math.round(Math.random() * (COLORS.length - 1))]
-  };
+  refresh() {
+    this.userService.findAll().subscribe(data => { console.log('Rozmiar danych w refresh: ' + data.length); this.users = data; });
+    this.changeDetectorRefs.detectChanges();
+  }
 }
 
 /** Constants used to fill up our data base. */
@@ -63,9 +61,3 @@ const NAMES = ['Maia', 'Asher', 'Olivia', 'Atticus', 'Amelia', 'Jack',
   'Charlotte', 'Theodore', 'Isla', 'Oliver', 'Isabella', 'Jasper',
   'Cora', 'Levi', 'Violet', 'Arthur', 'Mia', 'Thomas', 'Elizabeth'];
 
-export interface UserData {
-  id: string;
-  name: string;
-  progress: string;
-  color: string;
-}

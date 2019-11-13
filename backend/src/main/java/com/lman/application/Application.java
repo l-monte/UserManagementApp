@@ -30,7 +30,7 @@ public class Application {
 
 		System.out.println("MONTE: Application::init() [creating User instance]");
 
-		Stream.of("John", "Julie", "Jennifer", "Helen", "Rachel").forEach(name -> {
+		Stream.of("John", "Frank", "Elizabet", "Julie", "Jennifer", "Helen", "Rachel", "Majkel").forEach(name -> {
 			User user = new User(
 						new UserId(idGenerator.uniqueId()),
 						name,
