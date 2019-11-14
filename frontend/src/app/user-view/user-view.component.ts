@@ -33,6 +33,11 @@ export class UserViewComponent {
 
     this.userService.findAll().subscribe(data => {
 
+        this.users = data;
+        for (const user of this.users) {
+          user.timestampDate = (new Date(user.timestamp)).toLocaleString();
+        }
+
         this.dataSource = new MatTableDataSource(data);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;

@@ -32,7 +32,7 @@
     <!-- Last Timestamp -->
     <ng-container matColumnDef="timestamp">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Last timestamp </mat-header-cell>
-      <mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.color}} </mat-cell>
+      <mat-cell *matCellDef="let user"> {{user.timestampDate}} </mat-cell>
     </ng-container>
 
     <!-- Logged -->

@@ -7,4 +7,5 @@ export interface User {
   secondName: string;
   email: string;
   timestamp: number;
+  timestampDate: string;
 }
