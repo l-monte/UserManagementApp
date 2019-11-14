@@ -32,7 +32,7 @@ export class UserViewComponent {
   ngOnInit() {
 
     this.userService.findAll().subscribe(data => {
-        console.log('Rozmiar danych w UserView::ngOnInit(): ' + data.length);
+
         this.dataSource = new MatTableDataSource(data);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;

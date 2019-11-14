@@ -9,10 +9,12 @@ export class UserNumberService {
 
   private allUserNumberUrl: string;
   private loggedUserNumberUrl: string;
+  private postLoggedUserUrl: string;
 
   constructor(private httpClient: HttpClient) {
     this.allUserNumberUrl = 'http://localhost:8080/usersnumber';
     this.loggedUserNumberUrl = 'http://localhost:8080/loggedusersnumber';
+    this.postLoggedUserUrl = 'http://localhost:8080/userlogged';
   }
 
   public getAllUserNumber(): Observable<number> {
@@ -23,5 +25,9 @@ export class UserNumberService {
   public getLoggedUserNumber(): Observable<number> {
     console.log('DEBUG: Getting data from localhost:8080/loggedusersnumber ...');
     return this.httpClient.get<number>(this.loggedUserNumberUrl);
+  }
+
+  public saveSignedUser(email: string) {
+    return this.httpClient.post<number>(this.postLoggedUserUrl, email);
   }
 }

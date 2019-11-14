@@ -2,6 +2,7 @@ import { UserService } from './../services/user.service';
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import { User } from '../model/user';
+import { UserNumberService } from '../services/user-number.service';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,8 @@ export class LoginComponent implements OnInit {
   private users: User[] = [];
 
   constructor(private router: Router,
-              private userService: UserService) {}
+              private userService: UserService,
+              private userNumberService: UserNumberService) {}
 
   email: string;
   password: string;
@@ -23,7 +25,6 @@ export class LoginComponent implements OnInit {
   }
 
   login(): void {
-    console.log("email = " + this.email + ", password: " + this.password);
 
     this.userService.findAll().subscribe(users => {
         this.users = users;
@@ -34,11 +35,15 @@ export class LoginComponent implements OnInit {
   }
 
   validateUserEmail() {
-    for (let i = 0; i < this.users.length; i++) {
-      console.log('iteration for i = ' + i + '. User email: ' + this.users[i].email);
-      if (this.users[i].email === this.email) {
+    for (const user of this.users) {
+      if (user.email === this.email) {
 
         this.errorMessage = '';
+
+        this.userNumberService.saveSignedUser(user.email).subscribe((val) => {
+          console.log('POST call successful value returned in body', val);
+        });
+
         this.router.navigate(['users']);
         break;
       }

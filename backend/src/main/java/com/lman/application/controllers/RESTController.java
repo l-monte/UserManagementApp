@@ -33,7 +33,9 @@ public class RESTController {
     public long getUserNumber() { return userRepo.getUsersNumber(); }
 
     @PostMapping("/userlogged")
-        public ResponseEntity setUserLogged(@RequestBody String email) {
+    public ResponseEntity setUserLogged(@RequestBody String email) {
+
+        System.out.println("DEBUG: POST method of setUserLogged(): received logged email: " + email);
 
         UserId id = userRepo.findbyEmail(email);
         if (id != null) {

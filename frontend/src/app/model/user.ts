@@ -1,14 +1,10 @@
 import { Timestamp } from 'rxjs';
 
-export class User {
+export interface User {
 
   id: number;
   firstName: string;
   secondName: string;
   email: string;
-  timestamp: string;
-  //timestamp: Timestamp;
-
-  constructor() { }
-
+  timestamp: number;
 }
