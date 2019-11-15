@@ -1,11 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-user-size',
-  templateUrl: './user-size.component.html',
-  styleUrls: ['./user-size.component.scss']
+  selector: 'app-user-stats',
+  templateUrl: './user-stats.component.html',
+  styleUrls: ['./user-stats.component.scss']
 })
-export class UserSizeComponent implements OnInit {
+export class UserStatsComponent implements OnInit {
 
   @Input()
   // tslint:disable-next-line:no-inferrable-types

@@ -27,17 +27,6 @@ export class UserViewComponent {
               private userNumberService: UserNumberService) {
   }
 
-  ngOnInit() {
-
-    this.userNumberService.getAllUserNumber().subscribe(num => {
-      this.allUserNumber = num;
-    });
-
-    this.userNumberService.getLoggedUserNumber().subscribe(num => {
-      this.loggedUserNumber = num;
-    });
-  }
-
   getUserData(event: PageEvent) {
 
     this.userService.findUserPage(String(event.pageIndex), String(event.pageSize)).subscribe(data => {
@@ -46,8 +35,7 @@ export class UserViewComponent {
   }
 
   // tslint:disable-next-line: use-lifecycle-interface
-  ngAfterViewInit() {
-    console.log('The basic params of paginator are being filled');
+  ngOnInit() {
 
     this.userService.findUserPage(String(this.initialPageIndex), String(this.pageSize)).subscribe(data => {
       this.dataSource = data;
@@ -56,6 +44,14 @@ export class UserViewComponent {
     this.paginator.pageIndex = this.initialPageIndex;
     this.paginator.pageSize = this.pageSize;
     this.paginator.length = this.totalLength;
+
+    this.userNumberService.getAllUserNumber().subscribe(num => {
+      this.allUserNumber = num;
+    });
+
+    this.userNumberService.getLoggedUserNumber().subscribe(num => {
+      this.loggedUserNumber = num;
+    });
   }
 }
 

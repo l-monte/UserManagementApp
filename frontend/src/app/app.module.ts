@@ -9,7 +9,7 @@ import { LoginComponent } from './login/login.component';
 import { MaterialModule } from './core/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserViewComponent } from './user-view/user-view.component';
-import { UserSizeComponent } from './user-view/user-size/user-size.component'
+import { UserStatsComponent } from './user-view/user-stats/user-stats.component';
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
@@ -17,7 +17,7 @@ import { HttpClientModule } from '@angular/common/http';
     AppComponent,
     LoginComponent,
     UserViewComponent,
-    UserSizeComponent
+    UserStatsComponent
   ],
   imports: [
     BrowserModule,
