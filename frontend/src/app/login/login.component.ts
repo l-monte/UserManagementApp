@@ -2,7 +2,7 @@ import { UserService } from './../services/user.service';
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import { User } from '../model/user';
-import { UserNumberService } from '../services/user-number.service';
+import { SessionService } from '../services/session.service';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
 
   constructor(private router: Router,
               private userService: UserService,
-              private userNumberService: UserNumberService) {}
+              private sessionService: SessionService) {}
 
   email: string;
   password: string;
@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
 
       if (data === true ) {
 
-      this.userNumberService.saveSignedUser(this.email).subscribe((val) => {
+      this.sessionService.saveSignedUser(this.email).subscribe((val) => {
           console.log('POST call successful value returned in body', val);
         });
 

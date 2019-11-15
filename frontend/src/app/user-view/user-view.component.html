@@ -32,7 +32,7 @@
     <!-- Last Timestamp -->
     <ng-container matColumnDef="timestamp">
       <mat-header-cell *matHeaderCellDef> Last timestamp </mat-header-cell>
-      <mat-cell *matCellDef="let user"> {{user.timestampDate}} </mat-cell>
+      <mat-cell *matCellDef="let user" [style.color]="green"> {{user.timestamp}} </mat-cell>
     </ng-container>
 
     <!-- Logged -->
@@ -49,5 +49,5 @@
   <mat-paginator (page)="getUserData($event)" ></mat-paginator>
 </div>
 <div class="footer">
-  <app-user-stats [allUsersNum]="allUserNumber" [loggedUsersNum]="loggedUserNumber"></app-user-stats>
+  <app-user-stats></app-user-stats>
 </div>

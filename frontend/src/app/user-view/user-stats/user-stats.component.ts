@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { SessionService } from 'src/app/services/session.service';
 
 @Component({
   selector: 'app-user-stats',
@@ -15,9 +16,17 @@ export class UserStatsComponent implements OnInit {
   // tslint:disable-next-line:no-inferrable-types
   loggedUsersNum: number = 0;
 
-  constructor() { }
+  constructor(private sessionService: SessionService) { }
 
   ngOnInit() {
+
+    this.sessionService.getAllUserNumber().subscribe(num => {
+      this.allUsersNum = num;
+    });
+
+    this.sessionService.getLoggedUserNumber().subscribe(num => {
+      this.loggedUsersNum = num;
+    });
   }
 
 }

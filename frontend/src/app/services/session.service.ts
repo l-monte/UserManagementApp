@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
-export class UserNumberService {
+export class SessionService {
 
   private allUserNumberUrl: string;
   private loggedUserNumberUrl: string;

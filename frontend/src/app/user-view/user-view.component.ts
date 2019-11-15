@@ -1,8 +1,8 @@
-import { UserNumberService } from './../services/user-number.service';
+import { SessionService } from '../services/session.service';
 import { User } from './../model/user';
 import { UserService } from './../services/user.service';
-import { Component, ViewChild, ChangeDetectorRef } from '@angular/core';
-import { MatPaginator, MatSort, MatTableDataSource, PageEvent } from '@angular/material';
+import { Component, ViewChild } from '@angular/core';
+import { MatPaginator, PageEvent } from '@angular/material';
 
 @Component({
   selector: 'app-user-view',
@@ -16,15 +16,12 @@ export class UserViewComponent {
   private pageSize = 10;
   private totalLength = 100;
 
-  private allUserNumber = 0;
-  private loggedUserNumber = 0;
-
-  displayedColumns = ['name', 'surename', 'email', 'timestamp', 'logged'];
+  private displayedColumns = ['name', 'surename', 'email', 'timestamp', 'logged'];
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   constructor(private userService: UserService,
-              private userNumberService: UserNumberService) {
+              private sessionService: SessionService) {
   }
 
   getUserData(event: PageEvent) {
@@ -44,14 +41,6 @@ export class UserViewComponent {
     this.paginator.pageIndex = this.initialPageIndex;
     this.paginator.pageSize = this.pageSize;
     this.paginator.length = this.totalLength;
-
-    this.userNumberService.getAllUserNumber().subscribe(num => {
-      this.allUserNumber = num;
-    });
-
-    this.userNumberService.getLoggedUserNumber().subscribe(num => {
-      this.loggedUserNumber = num;
-    });
   }
 }
 
