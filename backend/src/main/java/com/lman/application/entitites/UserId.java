@@ -14,12 +14,7 @@ public class UserId {
 
     @Override
     public boolean equals(Object o) {
-        UserId other = (UserId)o;
-
-        if (this.id == other.id)
-            return true;
-        else
-            return false;
+        return this.id.equals(o);
     }
 
     @Override

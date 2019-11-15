@@ -5,10 +5,13 @@ import com.lman.application.entitites.UserId;
 import com.lman.application.repositories.LoggedUserRepository;
 import com.lman.application.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Instant;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -21,7 +24,18 @@ public class RESTController {
     @Autowired
     private UserRepository userRepo;
 
-    @GetMapping("/users")
+    @RequestMapping(value = "/userPage", method = RequestMethod.GET)
+    public List<User> getUsersPage(@RequestParam(value = "page") String page,
+                                   @RequestParam(value = "size") String size) {
+
+        System.out.println("DEBUG: getUsersPage() received page: " + page + ", size: " + size);
+
+        PageRequest pageReq = PageRequest.of(Integer.valueOf(page), Integer.valueOf(size));
+
+        return userRepo.findAll(pageReq).getContent();
+    }
+
+    @GetMapping("/userss")
     public List<User> getUsers() {
         return userRepo.findAll();
     }
@@ -39,8 +53,11 @@ public class RESTController {
 
         UserId id = userRepo.findbyEmail(email);
         if (id != null) {
-            User user = userRepo.findById(id);  
-            user.setTimestamp(Long.valueOf(System.currentTimeMillis() / 1000));
+            User user = userRepo.findById(id);
+            user.setTimestamp(Long.valueOf(Instant.now().toEpochMilli()));
+            userRepo.delete(id);
+            System.out.println("Czy user jest dalej wazny? email: " + user.getEmail() + ", timestamp: " + new Date(user.getTimestamp()).toString());
+            userRepo.save(user);
 
             loggedUserRepo.saveId(id);
 

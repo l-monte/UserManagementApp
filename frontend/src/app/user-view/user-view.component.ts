@@ -12,6 +12,7 @@ import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 export class UserViewComponent {
 
   private users: User[] = [];
+  private usersPage: User[] = [];
   private allUserNumber = 0;
   private loggedUserNumber = 0;
 
@@ -22,8 +23,7 @@ export class UserViewComponent {
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   constructor(private userService: UserService,
-              private userNumberService: UserNumberService,
-              private changeDetectorRefs: ChangeDetectorRef) {
+              private userNumberService: UserNumberService) {
 
     // Assign the data to the data source for the table to render
     this.dataSource = new MatTableDataSource(this.users);
@@ -31,18 +31,26 @@ export class UserViewComponent {
 
   ngOnInit() {
 
-    this.userService.findAll().subscribe(data => {
+    console.log('UserViewComponent::ngOnInit()');
 
-        this.users = data;
-        for (const user of this.users) {
-          user.timestampDate = (new Date(user.timestamp)).toLocaleString();
+    this.userService.findUserPage('0', '8').subscribe(data => {
+        this.usersPage = data;
+
+        for (const u of this.usersPage) {
+          console.log('User page: ' + u);
         }
+    });
 
-        this.dataSource = new MatTableDataSource(data);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-      });
+    // this.userService.findAll().subscribe(data => {
+
+    //     this.users = data;
+    //     for (const user of this.users) {
+    //       user.timestampDate = (new Date(user.timestamp)).toLocaleString();
+    //     }
+
+    //     this.dataSource = new MatTableDataSource(data);
+    //     this.dataSource.paginator = this.paginator;
+    //   });
 
     this.userNumberService.getAllUserNumber().subscribe(num => {
       this.allUserNumber = num;
@@ -58,11 +66,4 @@ export class UserViewComponent {
     this.dataSource.sort = this.sort;
   }
 }
-
-/** Constants used to fill up our data base. */
-const COLORS = ['maroon', 'red', 'orange', 'yellow', 'olive', 'green', 'purple',
-  'fuchsia', 'lime', 'teal', 'aqua', 'blue', 'navy', 'black', 'gray'];
-const NAMES = ['Maia', 'Asher', 'Olivia', 'Atticus', 'Amelia', 'Jack',
-  'Charlotte', 'Theodore', 'Isla', 'Oliver', 'Isabella', 'Jasper',
-  'Cora', 'Levi', 'Violet', 'Arthur', 'Mia', 'Thomas', 'Elizabeth'];
 

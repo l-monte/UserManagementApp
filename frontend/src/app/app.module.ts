@@ -4,8 +4,6 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CompaniesComponent } from './companies/companies/companies.component';
-import { CompanyDetailsComponent } from './company-details/company-details.component';
 import { MatListModule } from '@angular/material';
 import { LoginComponent } from './login/login.component';
 import { MaterialModule } from './core/material.module';
@@ -17,8 +15,6 @@ import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
-    CompaniesComponent,
-    CompanyDetailsComponent,
     LoginComponent,
     UserViewComponent,
     UserSizeComponent

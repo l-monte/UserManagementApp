@@ -2,47 +2,64 @@ package com.lman.application.repositories;
 
 import com.lman.application.entitites.User;
 import com.lman.application.entitites.UserId;
-import com.lman.application.utils.IdGenerator;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
+
+import java.time.Instant;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Component
 public class UserRepository  {
 
-    private Map<UserId, User> users;
+    private Map<UserId, User> userMap;
+    private List<User> userList;
 
     public UserRepository() {
-        this.users = new ConcurrentHashMap<>();
+        userMap = new ConcurrentHashMap<>();
+        userList = new ArrayList<>();
 
         for (User user: UserRepoMaker.generateUsers()) {
-            users.put(user.getId(), user);
+            userMap.put(user.getId(), user);
+            userList.add(user);
         }
     }
 
+    public Page<User> findAll(Pageable pageReq) {
+
+        int start = (int) pageReq.getOffset();
+        int end = (int) ((start + pageReq.getPageSize()) > userList.size() ? userList.size()
+                : (start + pageReq.getPageSize()));
+
+        Page<User> page = new PageImpl<User>(userList.subList(start, end), pageReq, userList.size());
+        return page;
+    }
+
     public List<User> findAll() {
-        List<User> result = new ArrayList(users.values());
+        List<User> result = new ArrayList(userMap.values());
         return result;
     }
 
     public void delete(UserId id) {
-        users.remove(id);
+        userMap.remove(id);
     }
 
     public void save(User user) {
-        users.put(user.getId(), user);
+        userMap.put(user.getId(), user);
     }
 
     public boolean existsById(Integer id) {
-        return users.containsKey(id);
+        return userMap.containsKey(id);
     }
 
     public User findById(UserId id) {
-        return users.get(id);
+        return userMap.get(id);
     }
 
     public UserId findbyEmail(String email) {
-        for (User user: users.values()) {
+        for (User user: userMap.values()) {
             if (user.getEmail().equals(email))
                 return user.getId();
         }
@@ -50,42 +67,25 @@ public class UserRepository  {
     }
 
     public long getUsersNumber() {
-        return users.size();
+        return userMap.size();
     }
 }
 
 class UserRepoMaker
 {
-    private final static int USER_NUMBER = 20;
+    private final static int USER_NUMBER = 100;
     private final static String EMAIL_DOMAIN = "@gmail.com";
-
-    private static ArrayList<String> names = new ArrayList<>(Arrays.asList("Oliver", "Jack", "Jacob", "Charlie", "Thomas",
-                                                                           "John", "Julie", "Jennifer", "Helen", "Rachel"));
-
-    private static ArrayList<String> secondNames = new ArrayList<>(Arrays.asList("Smith", "Jones", "Williams", "Taylor", "Davies"));
 
     public static List<User> generateUsers() {
         List<User> users = new ArrayList<User>();
-        IdGenerator idGen = new IdGenerator();
-
 
         for (int i = 0; i < USER_NUMBER; i++) {
 
-            String fName = getRandomName();
-            String sName = getRandomSecondName();
-            String email = fName.toLowerCase() + "." + sName.toLowerCase() + EMAIL_DOMAIN;
-            users.add(new User(new UserId(idGen.uniqueId()), fName, sName, email, Long.valueOf(System.currentTimeMillis() / 1000)));
+            String fName = "user" + String.valueOf(i);
+            String sName = "surname";
+            String email = fName + "." + sName + EMAIL_DOMAIN;
+            users.add(new User(new UserId(i), fName, sName, email, Long.valueOf(Instant.now().toEpochMilli())));
         }
         return users;
-    }
-
-    private static String getRandomName() {
-        Random rand = new Random();
-        return names.get(rand.nextInt(names.size()));
-    }
-
-    private static String getRandomSecondName() {
-        Random rand = new Random();
-        return secondNames.get(rand.nextInt(secondNames.size()));
     }
 }
