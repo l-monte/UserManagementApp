@@ -11,13 +11,18 @@ import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 })
 export class UserViewComponent {
 
+
   private users: User[] = [];
   private usersPage: User[] = [];
   private allUserNumber = 0;
   private loggedUserNumber = 0;
+  usery: User[] = [
+    {id: 1, firstName: 'luki', secondName: 'monte', email: 'luki.monte@gmail.com', timestamp: 123, timestampDate: '15 Nov 2019'},
+    {id: 2, firstName: 'kamil', secondName: 'mante', email: 'luki.monte@gmail.com', timestamp: 124, timestampDate: '14 Nov 2019'}
+  ];
 
   displayedColumns = ['name', 'surename', 'email', 'timestamp', 'logged'];
-  dataSource: MatTableDataSource<User>;
+  dataSource;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -27,6 +32,7 @@ export class UserViewComponent {
 
     // Assign the data to the data source for the table to render
     this.dataSource = new MatTableDataSource(this.users);
+    this.dataSource = this.usery;
   }
 
   ngOnInit() {

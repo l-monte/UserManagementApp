@@ -47,29 +47,27 @@ public class RESTController {
     @GetMapping("/usersnumber")
     public long getUserNumber() { return userRepo.getUsersNumber(); }
 
-    @PostMapping("/validateuser")
-    public ResponseEntity<Boolean> validateUser(@RequestBody String email) {
+    @GetMapping("/validateuser")
+    public Boolean validateUser(@RequestParam("email") String email) {
 
         UserId id = userRepo.findbyEmail(email);
         if (id != null) {
-            return new ResponseEntity<>(true, HttpStatus.OK);
+            return true;
         } else {
-            return new ResponseEntity<>(false, HttpStatus.NO_CONTENT);
+            return false;
         }
     }
 
     @PostMapping("/userlogged")
     public ResponseEntity setUserLogged(@RequestBody String email) {
 
-        System.out.println("DEBUG: POST method of setUserLogged(): received logged email: " + email);
-
         UserId id = userRepo.findbyEmail(email);
         if (id != null) {
             User user = userRepo.findById(id);
             user.setTimestamp(Long.valueOf(Instant.now().toEpochMilli()));
-//            userRepo.delete(id);
-//            System.out.println("Czy user jest dalej wazny? email: " + user.getEmail() + ", timestamp: " + new Date(user.getTimestamp()).toString());
-//            userRepo.save(user);
+            userRepo.delete(id);
+            System.out.println("Czy user jest dalej wazny? email: " + user.getEmail() + ", timestamp: " + new Date(user.getTimestamp()).toString());
+            userRepo.save(user);
 
             loggedUserRepo.saveId(id);
 

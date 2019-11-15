@@ -24,6 +24,9 @@ export class UserService {
   }
 
   public isUserInDB(email: string): Observable<boolean> {
-    return this.http.post<boolean>(this.validateUserUrl, email);
+
+    const params = new HttpParams().append('email', email);
+
+    return this.http.get<boolean>(this.validateUserUrl, {params});
   }
 }
