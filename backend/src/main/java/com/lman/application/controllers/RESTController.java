@@ -4,6 +4,7 @@ import com.lman.application.entitites.User;
 import com.lman.application.entitites.UserId;
 import com.lman.application.repositories.LoggedUserRepository;
 import com.lman.application.repositories.UserRepository;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
@@ -46,6 +47,17 @@ public class RESTController {
     @GetMapping("/usersnumber")
     public long getUserNumber() { return userRepo.getUsersNumber(); }
 
+    @PostMapping("/validateuser")
+    public ResponseEntity<Boolean> validateUser(@RequestBody String email) {
+
+        UserId id = userRepo.findbyEmail(email);
+        if (id != null) {
+            return new ResponseEntity<>(true, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(false, HttpStatus.NO_CONTENT);
+        }
+    }
+
     @PostMapping("/userlogged")
     public ResponseEntity setUserLogged(@RequestBody String email) {
 
@@ -55,9 +67,9 @@ public class RESTController {
         if (id != null) {
             User user = userRepo.findById(id);
             user.setTimestamp(Long.valueOf(Instant.now().toEpochMilli()));
-            userRepo.delete(id);
-            System.out.println("Czy user jest dalej wazny? email: " + user.getEmail() + ", timestamp: " + new Date(user.getTimestamp()).toString());
-            userRepo.save(user);
+//            userRepo.delete(id);
+//            System.out.println("Czy user jest dalej wazny? email: " + user.getEmail() + ", timestamp: " + new Date(user.getTimestamp()).toString());
+//            userRepo.save(user);
 
             loggedUserRepo.saveId(id);
 

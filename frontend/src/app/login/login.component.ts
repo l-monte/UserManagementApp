@@ -26,29 +26,21 @@ export class LoginComponent implements OnInit {
 
   login(): void {
 
-    this.userService.findAll().subscribe(users => {
-        this.users = users;
-        console.log('Otrzymane dane rozmiar: ' + users.length);
+    this.userNumberService.saveSignedUser(this.email).subscribe(data => {
+      // if (data === false) {
+      //   this.errorMessage = 'There is no such email, try once again';
+      // } else {
+      //   this.errorMessage = '';
 
-        this.validateUserEmail();
-      });
-  }
+      console.log('wyswietlam data po post:' + data);
 
-  validateUserEmail() {
-    for (const user of this.users) {
-      if (user.email === this.email) {
 
-        this.errorMessage = '';
-
-        this.userNumberService.saveSignedUser(user.email).subscribe((val) => {
+        this.userNumberService.saveSignedUser(this.email).subscribe((val) => {
           console.log('POST call successful value returned in body', val);
         });
 
         this.router.navigate(['users']);
-        break;
-      }
-    }
-    this.errorMessage = 'There is no such email, try once again';
+      //}
+    });
   }
-
 }

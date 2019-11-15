@@ -37,7 +37,7 @@ export class UserViewComponent {
         this.usersPage = data;
 
         for (const u of this.usersPage) {
-          console.log('User page: ' + u);
+          console.log('User page received in user-view: ' + u);
         }
     });
 

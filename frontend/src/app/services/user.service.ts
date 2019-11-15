@@ -9,20 +9,21 @@ import { User } from '../model/user';
 export class UserService {
 
   private usersUrl: string;
+  private validateUserUrl: string;
 
   constructor(private http: HttpClient) {
     this.usersUrl = 'http://localhost:8080/userPage';
-  }
-
-  public findAll(): Observable<User[]> {
-    return this.http.get<User[]>(this.usersUrl);
+    this.validateUserUrl = 'http://localhost:8080/validateuser';
   }
 
   public findUserPage(page: string, size: string): Observable<User[]> {
-    console.log('DEBUG: findUserPage() page = ' + page + ', size = ' + size);
 
-    const parameters = new HttpParams().set('page', page).set('size', size);
+    const params = new HttpParams().append('page', page).append('size', size);
 
-    return this.http.get<User[]>(this.usersUrl, {params: parameters});
+    return this.http.get<User[]>(this.usersUrl, {params});
+  }
+
+  public isUserInDB(email: string): Observable<boolean> {
+    return this.http.post<boolean>(this.validateUserUrl, email);
   }
 }
