@@ -1,15 +1,16 @@
 package com.lman.application.entitites;
 
 import java.sql.Timestamp;
+import java.util.UUID;
 
 public class User {
-    private final UserId id;
+    private final UUID id;
     private String firstName;
     private String secondName;
     private String email;
     private Long timestamp;
 
-    public User(UserId id, String firstName, String secondName, String email, long timestamp) {
+    public User(UUID id, String firstName, String secondName, String email, long timestamp) {
         this.id = id;
         this.firstName = firstName;
         this.secondName = secondName;
@@ -49,13 +50,13 @@ public class User {
         this.timestamp = timestamp;
     }
 
-    public UserId getId() {
+    public UUID getId() {
         return id;
     }
 
     @Override
     public String toString() {
-        return "User {" + id.getId().toString() + " " + firstName + " " + secondName + " " + email + " " + timestamp.toString() + "}";
+        return "User {" + id.toString() + " " + firstName + " " + secondName + " " + email + " " + timestamp.toString() + "}";
     }
 }
 

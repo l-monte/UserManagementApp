@@ -1,10 +1,8 @@
 package com.lman.application.controllers;
 
 import com.lman.application.entitites.User;
-import com.lman.application.entitites.UserId;
-import com.lman.application.repositories.LoggedUserRepository;
-import com.lman.application.repositories.UserRepository;
-import com.sun.org.apache.xpath.internal.operations.Bool;
+import com.lman.application.repositories.SessionService;
+import com.lman.application.repositories.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
@@ -14,16 +12,17 @@ import org.springframework.web.bind.annotation.*;
 import java.time.Instant;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 public class RESTController {
 
     @Autowired
-    private LoggedUserRepository loggedUserRepo;
+    private SessionService loggedUserRepo;
 
     @Autowired
-    private UserRepository userRepo;
+    private UserService userRepo;
 
     @RequestMapping(value = "/userPage", method = RequestMethod.GET)
     public List<User> getUsersPage(@RequestParam(value = "page") String page,
@@ -50,7 +49,7 @@ public class RESTController {
     @GetMapping("/validateuser")
     public Boolean validateUser(@RequestParam("email") String email) {
 
-        UserId id = userRepo.findbyEmail(email);
+        UUID id = userRepo.findbyEmail(email);
         if (id != null) {
             return true;
         } else {
@@ -61,7 +60,7 @@ public class RESTController {
     @PostMapping("/userlogged")
     public ResponseEntity setUserLogged(@RequestBody String email) {
 
-        UserId id = userRepo.findbyEmail(email);
+        UUID id = userRepo.findbyEmail(email);
         if (id != null) {
             User user = userRepo.findById(id);
             user.setTimestamp(Long.valueOf(Instant.now().toEpochMilli()));

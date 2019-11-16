@@ -13,6 +13,7 @@ repositories {
 }
 
 dependencies {
+	compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
 	compile 'org.springframework.data:spring-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {

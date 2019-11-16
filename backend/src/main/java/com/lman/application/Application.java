@@ -1,8 +1,6 @@
 package com.lman.application;
 
-import com.lman.application.entitites.User;
-import com.lman.application.entitites.UserId;
-import com.lman.application.repositories.UserRepository;
+import com.lman.application.repositories.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,7 +11,7 @@ import javax.annotation.PostConstruct;
 public class Application {
 
 	@Autowired
-	UserRepository userRepository;
+	UserService userService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
@@ -23,6 +21,6 @@ public class Application {
 	public void init() {
 
 		System.out.println("DEBUG: Users in database:");
-		userRepository.findAll().forEach(System.out::println);
+		userService.findAll().forEach(System.out::println);
 	}
 }

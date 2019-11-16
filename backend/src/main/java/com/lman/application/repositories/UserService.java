@@ -1,7 +1,6 @@
 package com.lman.application.repositories;
 
 import com.lman.application.entitites.User;
-import com.lman.application.entitites.UserId;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -12,12 +11,12 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Component
-public class UserRepository  {
+public class UserService {
 
-    private Map<UserId, User> userMap;
+    private Map<UUID, User> userMap;
     private List<User> userList;
 
-    public UserRepository() {
+    public UserService() {
         userMap = new ConcurrentHashMap<>();
         userList = new ArrayList<>();
 
@@ -42,7 +41,7 @@ public class UserRepository  {
         return result;
     }
 
-    public void delete(UserId id) {
+    public void delete(UUID id) {
         userMap.remove(id);
     }
 
@@ -54,11 +53,11 @@ public class UserRepository  {
         return userMap.containsKey(id);
     }
 
-    public User findById(UserId id) {
+    public User findById(UUID id) {
         return userMap.get(id);
     }
 
-    public UserId findbyEmail(String email) {
+    public UUID findbyEmail(String email) {
         for (User user: userMap.values()) {
             if (user.getEmail().equals(email))
                 return user.getId();
@@ -84,7 +83,7 @@ class UserRepoMaker
             String fName = "user" + String.valueOf(i);
             String sName = "surname";
             String email = fName + "." + sName + EMAIL_DOMAIN;
-            users.add(new User(new UserId(i), fName, sName, email, Long.valueOf(Instant.now().toEpochMilli())));
+            users.add(new User(UUID.randomUUID(), fName, sName, email, Long.valueOf(Instant.now().toEpochMilli())));
         }
         return users;
     }
