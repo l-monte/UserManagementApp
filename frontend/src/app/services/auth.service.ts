@@ -1,12 +1,15 @@
 import { PageEvent } from '@angular/material';
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService implements CanActivate {
+
+  constructor(private router: Router) {
+  }
 
   public isUserInDB = false;
 
@@ -17,6 +20,7 @@ export class AuthService implements CanActivate {
     if (this.isUserInDB) {
       return true;
     } else {
+      this.router.navigate(['/login']);
       return false;
     }
   }

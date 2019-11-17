@@ -5,11 +5,11 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MatListModule } from '@angular/material';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './views/login/login.component';
 import { MaterialModule } from './core/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { UserViewComponent } from './user-view/user-view.component';
-import { UserStatsComponent } from './user-view/user-stats/user-stats.component';
+import { UserViewComponent } from './views/user-view/user-view.component';
+import { UserStatsComponent } from './views/user-view/user-stats/user-stats.component';
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({

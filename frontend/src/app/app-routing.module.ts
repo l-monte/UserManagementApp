@@ -1,8 +1,8 @@
 import { AuthService } from './services/auth.service';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './views/login/login.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { UserViewComponent } from './user-view/user-view.component';
+import { UserViewComponent } from './views/user-view/user-view.component';
 
 const routes: Routes = [
   {

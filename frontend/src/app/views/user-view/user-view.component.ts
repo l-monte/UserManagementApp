@@ -1,6 +1,6 @@
-import { SessionService } from '../services/session.service';
-import { User } from './../model/user';
-import { UserService } from './../services/user.service';
+import { SessionService } from '../../services/session.service';
+import { User } from './../../model/user';
+import { UserService } from './../../services/user.service';
 import { Component, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material';
 

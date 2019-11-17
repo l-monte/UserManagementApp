@@ -1,9 +1,9 @@
-import { AuthService } from '../services/auth.service';
-import { UserService } from './../services/user.service';
+import { AuthService } from '../../services/auth.service';
+import { UserService } from '../../services/user.service';
 import { Component, OnInit } from '@angular/core';
-import {Router} from '@angular/router';
-import { User } from '../model/user';
-import { SessionService } from '../services/session.service';
+import { Router } from '@angular/router';
+import { User } from '../../model/user';
+import { SessionService } from '../../services/session.service';
 
 @Component({
   selector: 'app-login',
