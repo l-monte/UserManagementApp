@@ -1,26 +1,27 @@
 package com.lman.application.repositories;
 
+import com.lman.application.entitites.User;
 import org.springframework.stereotype.Component;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Component
 public class SessionService {
 
-    private Set<UUID> activeSessions = new HashSet<>();
+    private Map<UUID, UUID> activeSessions = new ConcurrentHashMap<>();
 
-    public boolean saveId(UUID id) {
-        return activeSessions.add(id);
+    public void saveId(UUID id) {
+        activeSessions.put(id, id);
     }
 
-    public boolean deleteId(UUID id) {
-        return activeSessions.remove(id);
+    public void deleteId(UUID id) {
+        activeSessions.remove(id);
     }
 
     public boolean isLogged(UUID id) {
-        return activeSessions.contains(id);
+        return activeSessions.containsKey(id);
     }
 
     public long getLoggedUsersNumber() { return activeSessions.size(); }
