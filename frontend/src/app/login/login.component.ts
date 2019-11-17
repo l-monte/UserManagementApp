@@ -1,3 +1,4 @@
+import { AuthService } from '../services/auth.service';
 import { UserService } from './../services/user.service';
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
@@ -14,6 +15,7 @@ export class LoginComponent implements OnInit {
   private users: User[] = [];
 
   constructor(private router: Router,
+              private authService: AuthService,
               private userService: UserService,
               private sessionService: SessionService) {}
 
@@ -33,8 +35,6 @@ export class LoginComponent implements OnInit {
 
     this.userService.isUserInDB(this.email).subscribe(data => {
 
-      console.log('Wyslano zapytanie do bazy od email: ' + this.email);
-
       if (data === true ) {
 
       this.sessionService.saveSignedUser(this.email).subscribe((val) => {
@@ -42,6 +42,7 @@ export class LoginComponent implements OnInit {
         });
 
       this.errorMessage = '';
+      this.authService.isUserInDB = true;
       this.router.navigate(['users']);
 
       } else {
