@@ -17,14 +17,19 @@ export class LoginComponent implements OnInit {
               private userService: UserService,
               private sessionService: SessionService) {}
 
-  email: string;
-  password: string;
-  errorMessage: string;
+  private email: string;
+  private password: string;
+  public errorMessage: string;
 
   ngOnInit() {
   }
 
   login(): void {
+
+    if (!this.password) {
+      this.errorMessage = 'password is empty!';
+      return;
+    }
 
     this.userService.isUserInDB(this.email).subscribe(data => {
 
