@@ -11,6 +11,7 @@ export class SessionService {
   private allUserNumberUrl = this.urlBase + 'usersnumber';
   private activeSessNumberUrl = this.urlBase + 'activesessnumber';
   private activeSessionUrl = this.urlBase + 'activesession';
+  private logoutSessionUrl = this.urlBase + 'logout';
 
   constructor(private httpClient: HttpClient) {
   }
@@ -25,5 +26,9 @@ export class SessionService {
 
   public saveSignedUser(email: string) {
     return this.httpClient.post<number>(this.activeSessionUrl, email);
+  }
+
+  public logoutUser(email: string) {
+    return this.httpClient.post<number>(this.logoutSessionUrl, email);
   }
 }

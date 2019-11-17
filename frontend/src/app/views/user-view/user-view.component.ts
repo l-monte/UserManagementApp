@@ -1,3 +1,5 @@
+import { Router } from '@angular/router';
+import { ActiveUserService } from './../../services/active-user.service';
 import { SessionService } from '../../services/session.service';
 import { User } from './../../model/user';
 import { UserService } from './../../services/user.service';
@@ -20,8 +22,10 @@ export class UserViewComponent {
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
-  constructor(private userService: UserService,
-              private sessionService: SessionService) {
+  constructor(private router: Router,
+              private userService: UserService,
+              private sessionService: SessionService,
+              private activeUserService: ActiveUserService) {
   }
 
   getUserData(event: PageEvent) {
@@ -36,13 +40,19 @@ export class UserViewComponent {
   ngOnInit() {
 
     this.userService.findUserPage(String(this.initialPageIndex), String(this.pageSize)).subscribe(data => {
-
       this.dataSource = data;
     });
 
     this.paginator.pageIndex = this.initialPageIndex;
     this.paginator.pageSize = this.pageSize;
     this.paginator.length = this.totalLength;
+  }
+
+  logout() {
+    this.sessionService.logoutUser(this.activeUserService.getActiveUser()).subscribe(
+      res => { this.activeUserService.resetActiveUser(); this.router.navigate(['login']); },
+      err => console.log('[logoutUser] HTTP Error: ', err)
+  );
   }
 }
 

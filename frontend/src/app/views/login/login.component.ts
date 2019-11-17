@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from '../../model/user';
 import { SessionService } from '../../services/session.service';
+import { ActiveUserService } from 'src/app/services/active-user.service';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,8 @@ export class LoginComponent implements OnInit {
   constructor(private router: Router,
               private authService: AuthService,
               private userService: UserService,
-              private sessionService: SessionService) {}
+              private sessionService: SessionService,
+              private activeUserService: ActiveUserService) {}
 
   public email: string;
   public password: string;
@@ -43,6 +45,7 @@ export class LoginComponent implements OnInit {
 
       this.errorMessage = '';
       this.authService.isUserInDB = true;
+      this.activeUserService.setActiveUser(this.email);
       this.router.navigate(['users']);
 
       } else {
