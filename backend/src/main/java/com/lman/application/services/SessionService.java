@@ -1,6 +1,5 @@
-package com.lman.application.repositories;
+package com.lman.application.services;
 
-import com.lman.application.entitites.User;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;

@@ -1,8 +1,10 @@
 package com.lman.application.controllers;
 
-import com.lman.application.entitites.User;
-import com.lman.application.repositories.SessionService;
-import com.lman.application.repositories.UserService;
+import com.lman.application.helpers.UserInfoBuilder;
+import com.lman.application.model.User;
+import com.lman.application.model.UserInfo;
+import com.lman.application.services.SessionService;
+import com.lman.application.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
@@ -10,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.Instant;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -19,20 +20,21 @@ import java.util.UUID;
 public class RESTController {
 
     @Autowired
+    private UserInfoBuilder builder;
+
+    @Autowired
     private SessionService loggedUserRepo;
 
     @Autowired
     private UserService userRepo;
 
     @RequestMapping(value = "/userPage", method = RequestMethod.GET)
-    public List<User> getUsersPage(@RequestParam(value = "page") String page,
-                                   @RequestParam(value = "size") String size) {
-
-        System.out.println("DEBUG: getUsersPage() received page: " + page + ", size: " + size);
+    public List<UserInfo> getUsersPage(@RequestParam(value = "page") String page,
+                                       @RequestParam(value = "size") String size) {
 
         PageRequest pageReq = PageRequest.of(Integer.valueOf(page), Integer.valueOf(size));
 
-        return userRepo.findAll(pageReq).getContent();
+        return builder.buildUserInfoList(userRepo.findAll(pageReq).getContent());
     }
 
     @GetMapping("/userss")

@@ -1,6 +1,6 @@
 package com.lman.application;
 
-import com.lman.application.repositories.UserService;
+import com.lman.application.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

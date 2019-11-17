@@ -38,7 +38,7 @@
     <!-- Logged -->
     <ng-container matColumnDef="logged">
       <mat-header-cell *matHeaderCellDef> Logged </mat-header-cell>
-      <mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.color}} </mat-cell>
+      <mat-cell *matCellDef="let user"> {{user.isLogged}} </mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

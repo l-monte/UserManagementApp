@@ -1,6 +1,5 @@
-package com.lman.application.entitites;
+package com.lman.application.model;
 
-import java.sql.Timestamp;
 import java.util.UUID;
 
 public class User {

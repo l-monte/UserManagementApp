@@ -16,7 +16,7 @@ export class UserViewComponent {
   private pageSize = 10;
   private totalLength = 100;
 
-  private displayedColumns = ['name', 'surename', 'email', 'timestamp', 'logged'];
+  public displayedColumns = ['name', 'surename', 'email', 'timestamp', 'logged'];
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
@@ -27,6 +27,7 @@ export class UserViewComponent {
   getUserData(event: PageEvent) {
 
     this.userService.findUserPage(String(event.pageIndex), String(event.pageSize)).subscribe(data => {
+
       this.dataSource = data;
     });
   }
@@ -35,6 +36,7 @@ export class UserViewComponent {
   ngOnInit() {
 
     this.userService.findUserPage(String(this.initialPageIndex), String(this.pageSize)).subscribe(data => {
+
       this.dataSource = data;
     });
 

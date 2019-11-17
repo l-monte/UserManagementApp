@@ -17,8 +17,8 @@ export class LoginComponent implements OnInit {
               private userService: UserService,
               private sessionService: SessionService) {}
 
-  private email: string;
-  private password: string;
+  public email: string;
+  public password: string;
   public errorMessage: string;
 
   ngOnInit() {
@@ -32,6 +32,8 @@ export class LoginComponent implements OnInit {
     }
 
     this.userService.isUserInDB(this.email).subscribe(data => {
+
+      console.log('Wyslano zapytanie do bazy od email: ' + this.email);
 
       if (data === true ) {
 

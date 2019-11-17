@@ -1,6 +1,6 @@
-package com.lman.application.repositories;
+package com.lman.application.services;
 
-import com.lman.application.entitites.User;
+import com.lman.application.model.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -32,8 +32,7 @@ public class UserService {
         int end = (int) ((start + pageReq.getPageSize()) > userList.size() ? userList.size()
                 : (start + pageReq.getPageSize()));
 
-        Page<User> page = new PageImpl<User>(userList.subList(start, end), pageReq, userList.size());
-        return page;
+        return new PageImpl<User>(userList.subList(start, end), pageReq, userList.size());
     }
 
     public List<User> findAll() {
