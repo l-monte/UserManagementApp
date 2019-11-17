@@ -43,7 +43,7 @@ public class RESTController {
         return userRepo.findAll();
     }
 
-    @GetMapping("/loggedusersnumber")
+    @GetMapping("/activesessnumber")
     public long getLoggedUsers() { return loggedUserRepo.getLoggedUsersNumber(); }
 
     @GetMapping("/usersnumber")
@@ -60,7 +60,7 @@ public class RESTController {
         }
     }
 
-    @PostMapping("/userlogged")
+    @PostMapping("/activesession")
     public ResponseEntity setUserLogged(@RequestBody String email) {
 
         UUID id = userRepo.findbyEmail(email);

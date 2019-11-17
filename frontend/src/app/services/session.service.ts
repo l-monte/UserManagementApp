@@ -9,8 +9,8 @@ export class SessionService {
 
   private urlBase = 'http://localhost:8080/';
   private allUserNumberUrl = this.urlBase + 'usersnumber';
-  private loggedUserNumberUrl = this.urlBase + 'loggedusersnumber';
-  private postLoggedUserUrl = this.urlBase + 'userlogged';
+  private activeSessNumberUrl = this.urlBase + 'activesessnumber';
+  private activeSessionUrl = this.urlBase + 'activesession';
 
   constructor(private httpClient: HttpClient) {
   }
@@ -20,10 +20,10 @@ export class SessionService {
   }
 
   public getLoggedUserNumber(): Observable<number> {
-    return this.httpClient.get<number>(this.loggedUserNumberUrl);
+    return this.httpClient.get<number>(this.activeSessNumberUrl);
   }
 
   public saveSignedUser(email: string) {
-    return this.httpClient.post<number>(this.postLoggedUserUrl, email);
+    return this.httpClient.post<number>(this.activeSessionUrl, email);
   }
 }
