@@ -7,23 +7,19 @@ import { Injectable } from '@angular/core';
 })
 export class SessionService {
 
-  private allUserNumberUrl: string;
-  private loggedUserNumberUrl: string;
-  private postLoggedUserUrl: string;
+  private urlBase = 'http://localhost:8080/';
+  private allUserNumberUrl = this.urlBase + 'usersnumber';
+  private loggedUserNumberUrl = this.urlBase + 'loggedusersnumber';
+  private postLoggedUserUrl = this.urlBase + 'userlogged';
 
   constructor(private httpClient: HttpClient) {
-    this.allUserNumberUrl = 'http://localhost:8080/usersnumber';
-    this.loggedUserNumberUrl = 'http://localhost:8080/loggedusersnumber';
-    this.postLoggedUserUrl = 'http://localhost:8080/userlogged';
   }
 
   public getAllUserNumber(): Observable<number> {
-    console.log('DEBUG: Getting data from localhost:8080/usersnumber ...');
     return this.httpClient.get<number>(this.allUserNumberUrl);
   }
 
   public getLoggedUserNumber(): Observable<number> {
-    console.log('DEBUG: Getting data from localhost:8080/loggedusersnumber ...');
     return this.httpClient.get<number>(this.loggedUserNumberUrl);
   }
 

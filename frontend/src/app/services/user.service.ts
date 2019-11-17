@@ -8,12 +8,11 @@ import { User } from '../model/user';
 })
 export class UserService {
 
-  private usersUrl: string;
-  private validateUserUrl: string;
+  private urlBase = 'http://localhost:8080/';
+  private usersUrl = this.urlBase + 'userPage';
+  private validateUserUrl = this.urlBase + 'validateuser';
 
   constructor(private http: HttpClient) {
-    this.usersUrl = 'http://localhost:8080/userPage';
-    this.validateUserUrl = 'http://localhost:8080/validateuser';
   }
 
   public findUserPage(page: string, size: string): Observable<User[]> {

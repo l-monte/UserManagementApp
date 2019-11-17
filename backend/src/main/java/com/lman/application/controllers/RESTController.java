@@ -65,7 +65,6 @@ public class RESTController {
             User user = userRepo.findById(id);
             user.setTimestamp(Long.valueOf(Instant.now().toEpochMilli()));
             userRepo.delete(id);
-            System.out.println("Czy user jest dalej wazny? email: " + user.getEmail() + ", timestamp: " + new Date(user.getTimestamp()).toString());
             userRepo.save(user);
 
             loggedUserRepo.saveId(id);
