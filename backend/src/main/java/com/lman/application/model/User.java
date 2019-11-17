@@ -1,5 +1,6 @@
 package com.lman.application.model;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class User {
@@ -7,9 +8,9 @@ public class User {
     private String firstName;
     private String secondName;
     private String email;
-    private Long timestamp;
+    private LocalDateTime timestamp;
 
-    public User(UUID id, String firstName, String secondName, String email, long timestamp) {
+    public User(UUID id, String firstName, String secondName, String email, LocalDateTime timestamp) {
         this.id = id;
         this.firstName = firstName;
         this.secondName = secondName;
@@ -41,11 +42,11 @@ public class User {
         this.email = email;
     }
 
-    public long getTimestamp() {
+    public LocalDateTime getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(long timestamp) {
+    public void setTimestamp(LocalDateTime timestamp) {
         this.timestamp = timestamp;
     }
 

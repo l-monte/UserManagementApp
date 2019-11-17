@@ -16,6 +16,9 @@ import java.util.List;
 @Component
 public class UserInfoBuilder
 {
+    private final String LOGGED = "LOGGED";
+    private final String NOT_LOGGED = "not logged";
+
     @Autowired
     private SessionService sessionService;
 
@@ -28,17 +31,15 @@ public class UserInfoBuilder
 
          userList.stream().forEach(user -> {
 
-            LocalDateTime timestamp =
-                    Instant.ofEpochMilli(user.getTimestamp()).atZone(ZoneId.systemDefault()).toLocalDateTime();
             DateTimeFormatter timestampFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-            String formattedDate = timestamp.format(timestampFormat);
+            String formattedDate = user.getTimestamp().format(timestampFormat);
 
             UserInfo info = new UserInfo(
                     user.getFirstName(),
                     user.getSecondName(),
                     user.getEmail(),
                     formattedDate,
-                    sessionService.isLogged(user.getId()) ? "LOGGED" : "not logged"
+                    sessionService.isLogged(user.getId()) ? LOGGED : NOT_LOGGED
             );
 
             userInfoList.add(info);

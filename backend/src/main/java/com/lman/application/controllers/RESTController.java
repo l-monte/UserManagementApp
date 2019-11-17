@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -65,7 +66,7 @@ public class RESTController {
         UUID id = userRepo.findbyEmail(email);
         if (id != null) {
             User user = userRepo.findById(id);
-            user.setTimestamp(Long.valueOf(Instant.now().toEpochMilli()));
+            user.setTimestamp(LocalDateTime.now());
             userRepo.delete(id);
             userRepo.save(user);
 

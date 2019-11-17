@@ -5,8 +5,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
+import sun.security.ssl.HandshakeOutStream;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalUnit;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -82,7 +86,7 @@ class UserRepoMaker
             String fName = "user" + String.valueOf(i);
             String sName = "surname";
             String email = fName + "." + sName + EMAIL_DOMAIN;
-            users.add(new User(UUID.randomUUID(), fName, sName, email, Long.valueOf(Instant.now().toEpochMilli())));
+            users.add(new User(UUID.randomUUID(), fName, sName, email, LocalDateTime.now().minus(1, ChronoUnit.HOURS)));
         }
         return users;
     }
